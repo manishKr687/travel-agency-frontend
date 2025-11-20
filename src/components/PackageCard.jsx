@@ -12,6 +12,8 @@ const PackageCard = ({ packageItem }) => {
 
   return (
     <Link to={`/packages/${packageItem.id}`} className="bg-white rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 overflow-hidden border border-gray-100 block">
+      {/* We should fix the height of these div's. Currently without that all the sections of one card
+      does not align with the sections of other card. */}
       <div className="relative h-48 overflow-hidden">
         <img
           src={packageItem.image}

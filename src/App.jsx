@@ -22,6 +22,7 @@ function App() {
           <Route path="packages/:id" element={<PackageDetailPage />} />
           <Route path="inquire/:id" element={<InquiryPage />} />
         </Route>
+        {/* TODO: For current version below routes are not important */}
         <Route path="/admin/login" element={<AdminLogin />} />
         <Route path="/admin" element={<PrivateRoute />}>
           <Route path="" element={<Navigate to="dashboard/inquiries" />} />
