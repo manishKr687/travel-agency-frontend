@@ -5,17 +5,22 @@ import PackageCard from '../components/PackageCard';
 import FilterSidebar from '../components/FilterSidebar';
 
 const PackageListingPage = () => {
-  const { MOCK_PACKAGES } = useOutletContext();
+  const { packages, loading } = useOutletContext();
   const [filters, setFilters] = useState({ type: [], theme: [], location: [] });
   const [mobileFilterOpen, setMobileFilterOpen] = useState(false);
   const [searchTerm, setSearchTerm] = useState('');
 
   // Filtering Logic using useMemo for performance
   const filteredPackages = useMemo(() => {
-    return MOCK_PACKAGES.filter(pkg => {
+    if (loading || !packages) {
+      return [];
+    }
+    return packages.filter(pkg => {
       // 1. Search Term Filter
-      const matchesSearch = pkg.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                          pkg.location.toLowerCase().includes(searchTerm.toLowerCase());
+      const name = pkg.name || '';
+      const location = pkg.location || '';
+      const matchesSearch = name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                          location.toLowerCase().includes(searchTerm.toLowerCase());
 
       if (!matchesSearch) return false;
 
@@ -30,7 +35,7 @@ const PackageListingPage = () => {
 
       return matchesType && matchesTheme && matchesLocation;
     });
-  }, [filters, searchTerm, MOCK_PACKAGES]);
+  }, [filters, searchTerm, packages, loading]);
 
   // Handler for applying mobile filters
   const handleApplyMobileFilters = () => {
@@ -69,7 +74,9 @@ const PackageListingPage = () => {
 
         {/* Package Results */}
         <div className="lg:w-3/4">
-          {filteredPackages.length > 0 ? (
+          {loading ? (
+            <p>Loading packages...</p>
+          ) : filteredPackages.length > 0 ? (
             <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
               {filteredPackages.map(pkg => (
                 <PackageCard key={pkg.id} packageItem={pkg} />

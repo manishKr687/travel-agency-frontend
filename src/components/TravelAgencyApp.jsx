@@ -1,34 +1,39 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Outlet, useLocation, Link } from 'react-router-dom';
 import { Mail, MapPin } from 'lucide-react';
 import Header from './Header';
-
-// For now we can have a json where we can maintain these configs if we don't want to integrate any backend
-// But at some point the json might become problem for loading we we add let say 100s of packages containing
-// large text and images
-
-const MOCK_PACKAGES = [
-  { id: 1, name: "Mystical Bali Retreat", type: "Luxury", theme: "Relaxation", price: 4500, duration: 7, location: "Indonesia", image: "https://placehold.co/800x600/10b981/ffffff?text=Bali" },
-  { id: 2, name: "Tokyo Neon Adventure", type: "Premium", theme: "City Break", price: 3200, duration: 5, location: "Japan", image: "https://placehold.co/800x600/f59e0b/ffffff?text=Tokyo" },
-  { id: 3, name: "Alps Hiking Expedition", type: "Standard", theme: "Adventure", price: 2100, duration: 10, location: "Switzerland", image: "https://placehold.co/800x600/3b82f6/ffffff?text=Alps" },
-  { id: 4, name: "Amazon Rainforest Tour", type: "Budget", theme: "Nature", price: 950, duration: 4, location: "Brazil", image: "https://placehold.co/800x600/ef4444/ffffff?text=Amazon" },
-  { id: 5, name: "Venice Romantic Getaway", type: "Luxury", theme: "Romance", price: 5800, duration: 6, location: "Italy", image: "https://placehold.co/800x600/6366f1/ffffff?text=Venice" },
-  { id: 6, name: "Sahara Desert Camping", type: "Premium", theme: "Adventure", price: 2800, duration: 3, location: "Morocco", image: "https://placehold.co/800x600/06b6d4/ffffff?text=Sahara" },
-];
+import { getPackages as getPackagesFromApi } from '../api/packages';
 
 const TravelAgencyApp = () => {
   const location = useLocation();
+  const [packages, setPackages] = useState([]);
+  const [loading, setLoading] = useState(true);
 
-  React.useEffect(() => {
+  useEffect(() => {
     window.scrollTo(0, 0);
   }, [location.pathname]);
+
+  useEffect(() => {
+    const fetchPackages = async () => {
+      try {
+        const data = await getPackagesFromApi();
+        setPackages(data);
+      } catch (error) {
+        console.error('Error fetching packages:', error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchPackages();
+  }, []);
 
   return (
     <div className="min-h-screen flex flex-col font-sans bg-gray-50">
       <Header />
 
       <div className="flex-grow">
-        <Outlet context={{ MOCK_PACKAGES }} />
+        <Outlet context={{ packages, loading }} />
       </div>
 
       {/* Footer (branding and contact information as required by documentation) */}

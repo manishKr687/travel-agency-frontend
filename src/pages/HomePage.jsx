@@ -5,7 +5,7 @@ import PackageCard from '../components/PackageCard';
 import TestimonialCard from '../components/TestimonialCard';
 
 const HomePage = () => {
-  const { MOCK_PACKAGES } = useOutletContext();
+  const { packages, loading } = useOutletContext();
 
   return (
     <main className="min-h-screen bg-gray-50 font-inter">
@@ -31,19 +31,27 @@ const HomePage = () => {
       <section className="py-12 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
         <h3 className="text-3xl font-bold text-gray-800 mb-8 text-center">Our Handpicked Favorites</h3>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {MOCK_PACKAGES.slice(0, 3).map(pkg => (
-            <PackageCard
-              key={pkg.id}
-              packageItem={pkg}
-            />
-          ))}
+          {loading ? (
+            <p>Loading packages...</p>
+          ) : (
+            packages && packages.length > 0 ? (
+              packages.slice(0, 3).map(pkg => (
+                <PackageCard
+                  key={pkg.id}
+                  packageItem={pkg}
+                />
+              ))
+            ) : (
+              <p>No packages available at the moment.</p>
+            )
+          )}
         </div>
         <div className="text-center mt-10">
           <Link
             to="/packages"
             className="px-6 py-3 border-2 border-teal-600 text-teal-600 font-semibold rounded-lg hover:bg-teal-50 transition duration-300"
           >
-            See All {MOCK_PACKAGES.length} Destinations
+            See All {packages ? packages.length : 0} Destinations
           </Link>
         </div>
       </section>

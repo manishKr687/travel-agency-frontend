@@ -1,5 +1,6 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
+import WhatsAppButton from './components/WhatsAppButton';
 import TravelAgencyApp from './components/TravelAgencyApp';
 import HomePage from './pages/HomePage';
 import PackageListingPage from './pages/PackageListingPage';
@@ -15,6 +16,7 @@ import PrivateRoute from './admin/PrivateRoute';
 function App() {
   return (
     <Router>
+      <WhatsAppButton />
       <Routes>
         <Route path="/" element={<TravelAgencyApp />}>
           <Route index element={<HomePage />} />

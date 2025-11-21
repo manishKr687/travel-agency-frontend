@@ -4,8 +4,13 @@ import { MapPin, Clock, Zap, ArrowLeft } from 'lucide-react';
 
 const PackageDetailPage = () => {
   const { id } = useParams();
-  const { MOCK_PACKAGES } = useOutletContext();
-  const packageItem = MOCK_PACKAGES.find(p => p.id === parseInt(id));
+  const { packages, loading } = useOutletContext();
+
+  if (loading) {
+    return <div className="text-center py-20">Loading package details...</div>;
+  }
+
+  const packageItem = packages.find(p => p.id === parseInt(id, 10));
 
   if (!packageItem) {
     return (
@@ -43,7 +48,7 @@ const PackageDetailPage = () => {
             <div className="flex flex-wrap text-md text-gray-700 mb-6 gap-x-6 gap-y-3">
               <span className="flex items-center font-medium">
                 <MapPin className="w-5 h-5 mr-2 text-teal-500" />
-                {packageItem.location}
+                {packageItem.destination}
               </span>
               <span className="flex items-center font-medium">
                 <Clock className="w-5 h-5 mr-2 text-teal-500" />
@@ -51,23 +56,23 @@ const PackageDetailPage = () => {
               </span>
               <span className="flex items-center font-medium">
                 <Zap className="w-5 h-5 mr-2 text-teal-500" />
-                {packageItem.theme}
+                {packageItem.theme || 'General'}
               </span>
             </div>
 
             <div className="mb-6">
               <span className={`px-4 py-1.5 text-sm font-semibold rounded-full shadow-md ${
-                packageItem.type === 'Luxury' ? 'bg-yellow-500 text-yellow-900' :
-                packageItem.type === 'Premium' ? 'bg-indigo-500 text-white' :
-                packageItem.type === 'Standard' ? 'bg-teal-500 text-white' :
+                (packageItem.type || 'Standard') === 'Luxury' ? 'bg-yellow-500 text-yellow-900' :
+                (packageItem.type || 'Standard') === 'Premium' ? 'bg-indigo-500 text-white' :
+                (packageItem.type || 'Standard') === 'Standard' ? 'bg-teal-500 text-white' :
                 'bg-gray-600 text-white'
               }`}>
-                {packageItem.type} Package
+                {(packageItem.type || 'Standard')} Package
               </span>
             </div>
 
             <p className="text-gray-600 mb-8 leading-relaxed">
-              Immerse yourself in the breathtaking landscapes of {packageItem.location}. This {packageItem.duration}-day {packageItem.theme.toLowerCase()} adventure is a {packageItem.type.toLowerCase()} experience designed to create lasting memories. Explore vibrant cultures, stunning natural wonders, and enjoy world-class amenities.
+              Immerse yourself in the breathtaking landscapes of {packageItem.destination}. This {packageItem.duration}-day {(packageItem.theme || 'General').toLowerCase()} adventure is a {(packageItem.type || 'Standard').toLowerCase()} experience designed to create lasting memories. Explore vibrant cultures, stunning natural wonders, and enjoy world-class amenities.
             </p>
 
             <div className="bg-teal-50 border-l-4 border-teal-500 p-4 rounded-r-lg mb-8">

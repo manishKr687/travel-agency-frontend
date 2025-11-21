@@ -1,6 +1,21 @@
 import apiConfig from './apiConfig';
 
+const SITE_MODE = process.env.REACT_APP_SITE_MODE;
+
 export const getPackages = async () => {
+  if (SITE_MODE === 'static') {
+    try {
+      // In static mode, fetch from the public folder
+      const response = await fetch('/packages.json');
+      if (!response.ok) {
+        throw new Error('Failed to fetch static packages');
+      }
+      return await response.json();
+    } catch (error) {
+      console.error('Error fetching static packages:', error);
+      throw error;
+    }
+  }
   try {
     const response = await fetch(`${apiConfig.baseURL}/packages`);
     if (!response.ok) {
@@ -14,6 +29,10 @@ export const getPackages = async () => {
 };
 
 export const addPackage = async (pkg) => {
+  if (SITE_MODE === 'static') {
+    console.log('addPackage is disabled in static mode');
+    return pkg;
+  }
   try {
     const response = await fetch(`${apiConfig.baseURL}/packages`, {
       method: 'POST',
@@ -34,6 +53,10 @@ export const addPackage = async (pkg) => {
 };
 
 export const deletePackage = async (id) => {
+  if (SITE_MODE === 'static') {
+    console.log('deletePackage is disabled in static mode');
+    return { success: true };
+  }
   try {
     const response = await fetch(`${apiConfig.baseURL}/packages/${id}`, {
       method: 'DELETE',

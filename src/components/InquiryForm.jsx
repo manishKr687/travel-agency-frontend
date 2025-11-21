@@ -1,16 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import { Mail } from 'lucide-react';
 import apiConfig from '../api/apiConfig';
 
-// TODO: These are not possible without backend. Other way of doing is
-// to integrate these with email/whatsapp and directly send the inquire there.
-// Not sure if adding those on frontend is wise decision, will have to dive deep here.
+const SITE_MODE = process.env.REACT_APP_SITE_MODE;
 
 const InquiryForm = () => {
   const { id } = useParams();
   const navigate = useNavigate();
-  
 
   const [packageName, setPackageName] = useState('the selected package');
   const [name, setName] = useState('');
@@ -30,15 +26,53 @@ const InquiryForm = () => {
         setPackageName(data.name);
       } catch (error) {
         console.error("Error fetching package:", error);
-        // Handle error, maybe show a message to the user
       }
     };
 
-    fetchPackage();
+    const fetchStaticPackage = () => {
+      // In static mode, "fetch" from the local file.
+      // The file is in public/packages.json, so the path is relative to the root
+      fetch('/packages.json')
+        .then(response => {
+          if (!response.ok) {
+            throw new Error("Could not load packages data.");
+          }
+          return response.json();
+        })
+        .then(packages => {
+          const pkg = packages.find(p => p.id === parseInt(id));
+          if (pkg) {
+            setPackageName(pkg.name);
+          } else {
+            // Handle case where package is not found
+            console.error(`Package with id ${id} not found.`);
+            alert(`Package with id ${id} not found.`);
+            setPackageName("Package not found");
+          }
+        })
+        .catch(error => {
+          console.error("Error fetching static package:", error);
+          alert("Could not load package data. Please try again later.");
+        });
+    };
+
+    if (SITE_MODE === 'static') {
+      fetchStaticPackage();
+    } else {
+      fetchPackage();
+    }
   }, [id]);
+
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if (SITE_MODE === 'static') {
+      const text = `I am inquiring about the package: ${packageName}.\n\nName: ${name}\nEmail: ${email}\nMessage: ${message}`;
+      const whatsappUrl = `https://wa.me/${apiConfig.whatsappNumber}?text=${encodeURIComponent(text)}`;
+      window.open(whatsappUrl, '_blank');
+      return;
+    }
+
     setIsSubmitting(true);
 
     const inquiry = {
@@ -71,12 +105,6 @@ const InquiryForm = () => {
     } finally {
       setIsSubmitting(false);
     }
-  };
-
-  const handleWhatsApp = () => {
-    const text = `I am inquiring about the package: ${packageName}. My name is ${name}.`;
-    const whatsappUrl = `https://wa.me/${apiConfig.whatsappNumber}?text=${encodeURIComponent(text)}`;
-    window.open(whatsappUrl, '_blank');
   };
 
   if (isSubmitted) {
@@ -136,17 +164,10 @@ const InquiryForm = () => {
         <div className="flex justify-between items-center">
           <button
             type="submit"
+            className="bg-teal-600 text-white px-4 py-2 rounded-lg"
             disabled={isSubmitting}
-            className="bg-teal-600 text-white px-4 py-2 rounded-lg disabled:bg-gray-400"
           >
             {isSubmitting ? 'Submitting...' : 'Submit Inquiry'}
-          </button>
-          <button
-            type="button"
-            onClick={handleWhatsApp}
-            className="bg-green-500 text-white px-4 py-2 rounded-lg flex items-center"
-          >
-            <Mail className="mr-2" /> WhatsApp
           </button>
         </div>
     </form>
