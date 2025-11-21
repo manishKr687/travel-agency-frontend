@@ -54,6 +54,9 @@ const FilterSidebar = ({ filters, setFilters, onApply }) => {
       <FilterGroup title="Theme" options={THEMES} filterKey="theme" />
       <FilterGroup title="Location" options={LOCATIONS} filterKey="location" />
 
+      {/* TODO: Currently with current logic we don't need this button because filter is being
+      applied as soon as we click on a option. This would have needed if after selecting the options
+      we would need to fetch packages from backend and then refresh the page with those packages. */}
       <button
         onClick={onApply}
         className="mt-6 w-full py-3 bg-teal-600 text-white font-bold rounded-lg hover:bg-teal-700 transition duration-300 shadow-lg"

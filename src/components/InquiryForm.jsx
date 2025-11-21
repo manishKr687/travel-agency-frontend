@@ -3,6 +3,10 @@ import { useParams, useNavigate } from 'react-router-dom';
 import { Mail } from 'lucide-react';
 import apiConfig from '../api/apiConfig';
 
+// TODO: These are not possible without backend. Other way of doing is
+// to integrate these with email/whatsapp and directly send the inquire there.
+// Not sure if adding those on frontend is wise decision, will have to dive deep here.
+
 const InquiryForm = () => {
   const { id } = useParams();
   const navigate = useNavigate();

@@ -16,6 +16,7 @@ const Header = () => {
         <div className="flex justify-between items-center h-16">
           <div className="flex-shrink-0">
             <Link to="/" className="text-2xl font-extrabold text-teal-600 cursor-pointer">
+            {/* TODO: Update Travel agency name */}
               <span className="text-4xl">✈️</span> TRVL Agency
             </Link>
           </div>

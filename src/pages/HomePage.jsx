@@ -53,6 +53,7 @@ const HomePage = () => {
         <div className="max-w-7xl mx-auto">
           <h3 className="text-3xl font-bold text-gray-800 mb-8 text-center">What Our Travelers Say</h3>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {/* TODO: Move these also to a json file on which we can iterate and create these components */}
             <TestimonialCard
               quote="The Mystical Bali Retreat was beyond perfect. Every detail was handled flawlessly. Highly recommend!"
               name="Sarah J."
@@ -73,6 +74,8 @@ const HomePage = () => {
       </section>
 
       {/* Blog Teaser (Mock) */}
+      {/* TODO: 1. Either remove these sections
+          2. Or, add the links which open */}
       <section className="py-12 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
         <h3 className="text-3xl font-bold text-gray-800 mb-8 text-center">Travel Inspiration</h3>
         <div className="bg-teal-50 p-6 rounded-xl shadow-inner flex flex-col md:flex-row items-center space-y-4 md:space-y-0 md:space-x-6">
