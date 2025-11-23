@@ -1,20 +1,21 @@
 [
   {
     "id": 1,
-    "quote": "The Mystical Bali Retreat was beyond perfect. Every detail was handled flawlessly. Highly recommend!",
-    "name": "Sarah J.",
-    "location": "New York, USA"
+    "quote": "The Kerala Backwaters retreat was absolutely peaceful. Everything was beautifully arranged!",
+    "name": "Aarav Mehta",
+    "location": "Mumbai, India"
   },
   {
     "id": 2,
-    "quote": "Tokyo Neon Adventure was an exhilarating experience! Seamless logistics and incredible local guides.",
-    "name": "David Chen",
-    "location": "Singapore"
+    "quote": "The Ladakh adventure was thrilling! Superb planning and amazing local guides.",
+    "name": "Priya Sharma",
+    "location": "Delhi, India"
   },
   {
     "id": 3,
-    "quote": "The Alps hike was challenging and rewarding. The agency made the planning stress-free. Five stars!",
-    "name": "Maria P.",
-    "location": "Berlin, Germany"
+    "quote": "The Goa beach getaway was unforgettable. The agency took care of every little detail!",
+    "name": "Rohit Kumar",
+    "location": "Bangalore, India"
   }
 ]
+
