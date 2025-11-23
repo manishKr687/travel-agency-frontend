@@ -17,7 +17,7 @@ const Header = () => {
           <div className="flex-shrink-0">
             <Link to="/" className="text-2xl font-extrabold text-teal-600 cursor-pointer">
             {/* TODO: Update Travel agency name */}
-              <span className="text-4xl">✈️</span> TRVL Agency
+              <span className="text-4xl">✈️</span> TraveloEra
             </Link>
           </div>
           <nav className="hidden md:flex space-x-4">
