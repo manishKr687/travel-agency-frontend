@@ -15,7 +15,7 @@ import PrivateRoute from './admin/PrivateRoute';
 
 function App() {
   return (
-    <Router>
+    <Router future={{ v7_startTransition: true, v7_relativeSplatPath: true }}>
       <WhatsAppButton />
       <Routes>
         <Route path="/" element={<TravelAgencyApp />}>

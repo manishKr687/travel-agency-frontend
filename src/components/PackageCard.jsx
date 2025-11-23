@@ -6,12 +6,19 @@ const PackageCard = ({ packageItem }) => {
   const navigate = useNavigate();
 
   const handleInquireClick = (e) => {
-    e.stopPropagation(); // Prevent the outer Link from triggering
+    e.stopPropagation(); // Prevent the outer div's onClick from triggering
     navigate(`/inquire/${packageItem.id}`);
   };
 
+  const handleCardClick = () => {
+    navigate(`/packages/${packageItem.id}`);
+  };
+
   return (
-    <Link to={`/packages/${packageItem.id}`} className="bg-white rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 overflow-hidden border border-gray-100 block">
+    <div 
+      onClick={handleCardClick} 
+      className="bg-white rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 overflow-hidden border border-gray-100 block h-full flex flex-col cursor-pointer"
+    >
       {/* We should fix the height of these div's. Currently without that all the sections of one card
       does not align with the sections of other card. */}
       <div className="relative h-48 overflow-hidden">
@@ -30,8 +37,8 @@ const PackageCard = ({ packageItem }) => {
           {packageItem.type}
         </span>
       </div>
-      <div className="p-4 sm:p-5">
-        <h3 className="text-xl font-bold text-gray-900 mb-2">{packageItem.name}</h3>
+      <div className="p-4 sm:p-5 flex flex-col flex-grow h-64">
+        <h3 className="text-xl font-bold text-gray-900 mb-2 h-14">{packageItem.name}</h3>
 
         <div className="flex flex-wrap text-sm text-gray-600 mb-4 gap-3">
           <span className="flex items-center">
@@ -48,7 +55,7 @@ const PackageCard = ({ packageItem }) => {
           </span>
         </div>
 
-        <div className="flex items-center justify-between mt-4 border-t pt-4">
+        <div className="flex items-center justify-between mt-auto border-t pt-4">
           <p className="text-2xl font-extrabold text-teal-600">
             <span className="text-xl mr-0.5">$</span>{packageItem.price.toLocaleString()}
           </p>
@@ -60,7 +67,7 @@ const PackageCard = ({ packageItem }) => {
           </button>
         </div>
       </div>
-    </Link>
+    </div>
   );
 };
 

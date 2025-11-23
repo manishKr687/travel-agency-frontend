@@ -38,25 +38,5 @@
     "duration": 4,
     "location": "Brazil",
     "image": "https://placehold.co/800x600/ef4444/ffffff?text=Amazon"
-  },
-  {
-    "id": 5,
-    "name": "Venice Romantic Getaway",
-    "type": "Luxury",
-    "theme": "Romance",
-    "price": 5800,
-    "duration": 6,
-    "location": "Italy",
-    "image": "https://placehold.co/800x600/6366f1/ffffff?text=Venice"
-  },
-  {
-    "id": 6,
-    "name": "Sahara Desert Camping",
-    "type": "Premium",
-    "theme": "Adventure",
-    "price": 2800,
-    "duration": 3,
-    "location": "Morocco",
-    "image": "https://placehold.co/800x600/06b6d4/ffffff?text=Sahara"
   }
 ]
