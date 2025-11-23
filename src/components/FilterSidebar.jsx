@@ -1,11 +1,13 @@
 import React from 'react';
 import { Filter } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
 
 const PACKAGE_TYPES = ["Luxury", "Premium", "Standard", "Budget"];
 const THEMES = ["Relaxation", "City Break", "Adventure", "Nature", "Romance"];
 const LOCATIONS = ["Indonesia", "Japan", "Switzerland", "Brazil", "Italy", "Morocco"];
 
 const FilterSidebar = ({ filters, setFilters, onApply }) => {
+  const { t } = useTranslation();
   const handleChange = (key, value) => {
     setFilters(prev => ({
       ...prev,
@@ -43,16 +45,16 @@ const FilterSidebar = ({ filters, setFilters, onApply }) => {
       <div className="flex justify-between items-center mb-6">
         <h3 className="text-2xl font-extrabold text-teal-600 flex items-center">
           <Filter className="w-6 h-6 mr-2" />
-          Filters
+          {t('components.filterSidebar.title')}
         </h3>
         <button onClick={handleClear} className="text-sm font-semibold text-red-500 hover:text-red-700 transition">
-          Clear All
+          {t('components.filterSidebar.clearAllButton')}
         </button>
       </div>
 
-      <FilterGroup title="Package Type" options={PACKAGE_TYPES} filterKey="type" />
-      <FilterGroup title="Theme" options={THEMES} filterKey="theme" />
-      <FilterGroup title="Location" options={LOCATIONS} filterKey="location" />
+      <FilterGroup title={t('components.filterSidebar.packageType')} options={PACKAGE_TYPES} filterKey="type" />
+      <FilterGroup title={t('components.filterSidebar.theme')} options={THEMES} filterKey="theme" />
+      <FilterGroup title={t('components.filterSidebar.location')} options={LOCATIONS} filterKey="location" />
 
       {/* TODO: Currently with current logic we don't need this button because filter is being
       applied as soon as we click on a option. This would have needed if after selecting the options
@@ -61,7 +63,7 @@ const FilterSidebar = ({ filters, setFilters, onApply }) => {
         onClick={onApply}
         className="mt-6 w-full py-3 bg-teal-600 text-white font-bold rounded-lg hover:bg-teal-700 transition duration-300 shadow-lg"
       >
-        Apply Filters
+        {t('components.filterSidebar.applyButton')}
       </button>
     </div>
   );

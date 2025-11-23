@@ -5,7 +5,7 @@ import ContactButton from './ContactButton';
 const WhatsAppButton = () => {
   const openWhatsApp = () => {
     // Replace with your WhatsApp number
-    const phoneNumber = '1234567890';
+    const phoneNumber = '7979804102';
     const message = "Hello! I'm interested in your travel packages.";
     const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
     window.open(whatsappUrl, '_blank');

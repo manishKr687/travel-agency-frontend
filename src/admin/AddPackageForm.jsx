@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import apiConfig from '../api/apiConfig';
 
 const AddPackageForm = () => {
+  const { t } = useTranslation();
   const [name, setName] = useState('');
   const [type, setType] = useState('');
   const [theme, setTheme] = useState('');
@@ -37,23 +39,23 @@ const AddPackageForm = () => {
       });
 
       if (!response.ok) {
-        throw new Error("Failed to add package");
+        throw new Error(t('admin.addPackage.failed'));
       }
 
       navigate('/admin/packages');
 
     } catch (err) {
-      alert("Error adding package: " + err.message);
+      alert(t('admin.addPackage.error', { error: err.message }));
     }
   };
 
   return (
     <div>
-      <h2 className="text-3xl font-bold mb-8">Add New Package</h2>
+      <h2 className="text-3xl font-bold mb-8">{t('admin.addPackage.title')}</h2>
       <form onSubmit={handleSubmit} className="bg-white p-8 rounded-lg shadow-md">
 
         <div className="mb-4">
-          <label className="block text-gray-700">Package Name</label>
+          <label className="block text-gray-700">{t('admin.addPackage.nameLabel')}</label>
           <input
             type="text"
             className="w-full p-2 border rounded"
@@ -65,25 +67,25 @@ const AddPackageForm = () => {
 
         <div className="grid grid-cols-2 gap-4">
           <div>
-            <label className="block text-gray-700">Type</label>
+            <label className="block text-gray-700">{t('admin.addPackage.typeLabel')}</label>
             <input
               type="text"
               className="w-full p-2 border rounded"
               value={type}
               onChange={(e) => setType(e.target.value)}
-              placeholder="Luxury, Premium, Standard, Budget"
+              placeholder={t('admin.addPackage.typePlaceholder')}
               required
             />
           </div>
 
           <div>
-            <label className="block text-gray-700">Theme</label>
+            <label className="block text-gray-700">{t('admin.addPackage.themeLabel')}</label>
             <input
               type="text"
               className="w-full p-2 border rounded"
               value={theme}
               onChange={(e) => setTheme(e.target.value)}
-              placeholder="Adventure, Nature, Romance"
+              placeholder={t('admin.addPackage.themePlaceholder')}
               required
             />
           </div>
@@ -91,7 +93,7 @@ const AddPackageForm = () => {
 
         <div className="grid grid-cols-3 gap-4 mt-4">
           <div>
-            <label className="block text-gray-700">Price</label>
+            <label className="block text-gray-700">{t('admin.addPackage.priceLabel')}</label>
             <input
               type="number"
               className="w-full p-2 border rounded"
@@ -102,7 +104,7 @@ const AddPackageForm = () => {
           </div>
 
           <div>
-            <label className="block text-gray-700">Duration (days)</label>
+            <label className="block text-gray-700">{t('admin.addPackage.durationLabel')}</label>
             <input
               type="number"
               className="w-full p-2 border rounded"
@@ -113,7 +115,7 @@ const AddPackageForm = () => {
           </div>
 
           <div>
-            <label className="block text-gray-700">Location</label>
+            <label className="block text-gray-700">{t('admin.addPackage.locationLabel')}</label>
             <input
               type="text"
               className="w-full p-2 border rounded"
@@ -125,7 +127,7 @@ const AddPackageForm = () => {
         </div>
 
         <div className="mt-4 mb-4">
-          <label className="block text-gray-700">Image URL</label>
+          <label className="block text-gray-700">{t('admin.addPackage.imageUrlLabel')}</label>
           <input
             type="text"
             className="w-full p-2 border rounded"
@@ -141,14 +143,14 @@ const AddPackageForm = () => {
             onClick={() => navigate('/admin/packages')}
             className="bg-gray-400 text-white px-4 py-2 rounded-lg mr-4"
           >
-            Cancel
+            {t('admin.addPackage.cancelButton')}
           </button>
 
           <button
             type="submit"
             className="bg-teal-600 text-white px-4 py-2 rounded-lg"
           >
-            Add Package
+            {t('admin.addPackage.addButton')}
           </button>
         </div>
       </form>

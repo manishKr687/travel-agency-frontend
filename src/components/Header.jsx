@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
 import { NavLink, Link } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import { Home as HomeIcon, Map, X, Menu } from 'lucide-react';
 
 const Header = () => {
+  const { t } = useTranslation();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const navItemClass = ({ isActive }) =>
@@ -16,16 +18,15 @@ const Header = () => {
         <div className="flex justify-between items-center h-16">
           <div className="flex-shrink-0">
             <Link to="/" className="text-2xl font-extrabold text-teal-600 cursor-pointer">
-            {/* TODO: Update Travel agency name */}
-              <span className="text-4xl">✈️</span> TraveloEra
+              <span className="text-4xl">✈️</span> {t('header.appName')}
             </Link>
           </div>
           <nav className="hidden md:flex space-x-4">
             <NavLink to="/" className={navItemClass}>
-              <HomeIcon className="w-5 h-5 inline mr-1" /> Home
+              <HomeIcon className="w-5 h-5 inline mr-1" /> {t('header.home')}
             </NavLink>
             <NavLink to="/packages" className={navItemClass}>
-              <Map className="w-5 h-5 inline mr-1" /> Packages
+              <Map className="w-5 h-5 inline mr-1" /> {t('header.packages')}
             </NavLink>
           </nav>
 
@@ -44,10 +45,10 @@ const Header = () => {
       {isMenuOpen && (
         <div className="md:hidden border-t border-gray-100 p-4">
           <NavLink to="/" className={navItemClass} onClick={() => setIsMenuOpen(false)}>
-            <HomeIcon className="w-5 h-5 inline mr-2" /> Home
+            <HomeIcon className="w-5 h-5 inline mr-2" /> {t('header.home')}
           </NavLink>
           <NavLink to="/packages" className={`mt-2 ${navItemClass}`} onClick={() => setIsMenuOpen(false)}>
-            <Map className="w-5 h-5 inline mr-2" /> Packages
+            <Map className="w-5 h-5 inline mr-2" /> {t('header.packages')}
           </NavLink>
         </div>
       )}
