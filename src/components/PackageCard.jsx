@@ -51,6 +51,11 @@ const PackageCard = ({ packageItem }) => {
         >
           {packageItem.type}
         </span>
+        {packageItem.offer && (
+          <span className="absolute bottom-3 left-3 px-3 py-1 text-xs font-semibold rounded-full shadow-md bg-green-500 text-white">
+            {packageItem.offer.discountPercentage}% OFF
+          </span>
+        )}
       </div>
 
       {/* CONTENT */}
@@ -80,9 +85,20 @@ const PackageCard = ({ packageItem }) => {
 
         {/* PRICE + CTA */}
         <div className="flex items-center justify-between mt-auto border-t pt-4">
-          <p className="text-2xl font-extrabold text-gray-800">
-            ₹{packageItem.price.toLocaleString("en-IN")}
-          </p>
+          {packageItem.offer ? (
+            <div className="flex flex-col">
+              <p className="text-sm text-gray-500 line-through">
+                ₹{packageItem.price.toLocaleString("en-IN")}
+              </p>
+              <p className="text-2xl font-extrabold text-red-600">
+                ₹{(packageItem.price * (1 - packageItem.offer.discountPercentage / 100)).toLocaleString("en-IN")}
+              </p>
+            </div>
+          ) : (
+            <p className="text-2xl font-extrabold text-gray-800">
+              ₹{packageItem.price.toLocaleString("en-IN")}
+            </p>
+          )}
 
           <button
             onClick={handleInquireClick}

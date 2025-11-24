@@ -75,11 +75,30 @@ const PackageDetailPage = () => {
               Immerse yourself in the breathtaking landscapes of {packageItem.destination}. This {packageItem.duration}-day {(packageItem.theme || 'General').toLowerCase()} adventure is a {(packageItem.type || 'Standard').toLowerCase()} experience designed to create lasting memories. Explore vibrant cultures, stunning natural wonders, and enjoy world-class amenities.
             </p>
 
+            {packageItem.offer && (
+              <div className="bg-green-50 border-l-4 border-green-500 p-4 rounded-r-lg mb-6">
+                <p className="text-sm text-green-800 font-semibold mb-1">Special Offer!</p>
+                <p className="text-lg text-green-700">{packageItem.offer.description} Get {packageItem.offer.discountPercentage}% off!</p>
+              </div>
+            )}
+
             <div className="bg-teal-50 border-l-4 border-teal-500 p-4 rounded-r-lg mb-8">
-              <p className="text-3xl font-extrabold text-teal-700">
-                <span className="text-2xl mr-1">$</span>{packageItem.price.toLocaleString()}
-                <span className="text-lg font-medium text-gray-600"> / person</span>
-              </p>
+              {packageItem.offer ? (
+                <>
+                  <p className="text-xl font-semibold text-gray-500 line-through">
+                    <span className="text-lg mr-1">$</span>{packageItem.price.toLocaleString()}
+                  </p>
+                  <p className="text-3xl font-extrabold text-red-600">
+                    <span className="text-2xl mr-1">$</span>{(packageItem.price * (1 - packageItem.offer.discountPercentage / 100)).toLocaleString()}
+                    <span className="text-lg font-medium text-gray-600"> / person</span>
+                  </p>
+                </>
+              ) : (
+                <p className="text-3xl font-extrabold text-teal-700">
+                  <span className="text-2xl mr-1">$</span>{packageItem.price.toLocaleString()}
+                  <span className="text-lg font-medium text-gray-600"> / person</span>
+                </p>
+              )}
             </div>
 
             <Link

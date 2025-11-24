@@ -9,7 +9,7 @@ const InquiryPage = () => {
   const { id } = useParams();
   const navigate = useNavigate();
 
-  const [packageName, setPackageName] = useState("the selected package");
+  const [packageDetails, setPackageDetails] = useState(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
 
@@ -19,7 +19,7 @@ const InquiryPage = () => {
         const res = await fetch(`${apiConfig.baseURL}/packages/${id}`);
         if (!res.ok) throw new Error("Package fetch failed.");
         const data = await res.json();
-        setPackageName(data.name);
+        setPackageDetails(data);
       } catch (err) {
         console.error("Error fetching package:", err);
       }
@@ -33,8 +33,8 @@ const InquiryPage = () => {
         })
         .then((packages) => {
           const pkg = packages.find((p) => p.id === parseInt(id));
-          if (pkg) setPackageName(pkg.name);
-          else setPackageName("Package not found");
+          if (pkg) setPackageDetails(pkg);
+          else setPackageDetails(null);
         })
         .catch((err) => console.error("Error loading static package:", err));
     };
@@ -43,15 +43,19 @@ const InquiryPage = () => {
   }, [id]);
 
   const handleSubmit = async ({ name, email, message }) => {
+    const finalPrice = packageDetails.offer
+      ? packageDetails.price * (1 - packageDetails.offer.discountPercentage / 100)
+      : packageDetails.price;
+
     if (SITE_MODE === "static") {
-      const text = `Inquiry for: ${packageName}\n\nName: ${name}\nEmail: ${email}\nMessage: ${message}`;
+      const text = `Inquiry for: ${packageDetails.name} (Price: ₹${finalPrice.toLocaleString("en-IN")})\n\nName: ${name}\nEmail: ${email}\nMessage: ${message}`;
       const wa = `https://wa.me/${apiConfig.whatsappNumber}?text=${encodeURIComponent(text)}`;
       window.open(wa, "_blank");
       return;
     }
 
     setIsSubmitting(true);
-    const inquiry = { packageId: parseInt(id), packageName, name, email, message };
+    const inquiry = { packageId: parseInt(id), packageName: packageDetails.name, finalPrice, name, email, message };
 
     try {
       const res = await fetch(`${apiConfig.baseURL}/inquiry`, {
@@ -68,6 +72,16 @@ const InquiryPage = () => {
     }
   };
 
+  if (!packageDetails) {
+    return (
+      <div className="flex justify-center px-4 py-12 sm:py-16">
+        <div className="max-w-2xl w-full bg-white/80 backdrop-blur-xl rounded-2xl shadow-xl p-6 sm:p-10 text-center">
+          <p>Loading package details for inquiry...</p>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className="flex justify-center px-4 py-12 sm:py-16">
       <div className="max-w-2xl w-full bg-white/80 backdrop-blur-xl rounded-2xl shadow-xl p-6 sm:p-10">
@@ -75,7 +89,13 @@ const InquiryPage = () => {
           <div className="text-center">
             <h3 className="text-3xl font-heading text-secondary font-bold">Thank You!</h3>
             <p className="mt-3 text-gray-700">
-              Your inquiry for <b>{packageName}</b> has been received. We’ll get back to you shortly.
+              Your inquiry for <b>{packageDetails.name}</b> has been received.
+              {packageDetails.offer && (
+                <>
+                  <br />Your discounted price is: <b>₹{(packageDetails.price * (1 - packageDetails.offer.discountPercentage / 100)).toLocaleString("en-IN")}</b>
+                </>
+              )}
+              We’ll get back to you shortly.
             </p>
             <button
               onClick={() => navigate(`/packages/${id}`)}
@@ -87,7 +107,7 @@ const InquiryPage = () => {
         ) : (
           <Suspense fallback={<p className="text-center text-gray-500">Loading form...</p>}>
             <InquiryForm
-              packageName={packageName}
+              packageName={packageDetails.name}
               onSubmit={handleSubmit}
               isSubmitting={isSubmitting}
             />

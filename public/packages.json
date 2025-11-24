@@ -7,7 +7,11 @@
     "price": 4500,
     "duration": 7,
     "location": "Indonesia",
-    "image": "https://placehold.co/800x600/10b981/ffffff?text=Bali"
+    "image": "https://placehold.co/800x600/10b981/ffffff?text=Bali",
+    "offer": {
+      "discountPercentage": 15,
+      "description": "Book by December 31st!"
+    }
   },
   {
     "id": 2,
@@ -27,7 +31,11 @@
     "price": 2100,
     "duration": 10,
     "location": "Switzerland",
-    "image": "https://placehold.co/800x600/3b82f6/ffffff?text=Alps"
+    "image": "https://placehold.co/800x600/3b82f6/ffffff?text=Alps",
+    "offer": {
+      "discountPercentage": 10,
+      "description": "Adventure awaits!"
+    }
   },
   {
     "id": 4,
