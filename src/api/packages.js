@@ -1,6 +1,6 @@
 import apiConfig from './apiConfig';
 
-const SITE_MODE = process.env.REACT_APP_SITE_MODE;
+export const SITE_MODE = process.env.REACT_APP_SITE_MODE;
 
 export const getPackages = async () => {
   if (SITE_MODE === 'static') {
