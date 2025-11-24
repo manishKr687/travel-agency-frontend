@@ -26,7 +26,7 @@ const PackageDetailPage = () => {
   return (
     <main className="min-h-screen bg-white font-inter">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        <Link to="/packages" className="inline-flex items-center text-teal-600 hover:text-teal-800 transition mb-6">
+        <Link to="/packages" className="inline-flex items-center text-tertiary-600 hover:text-gray-800 transition mb-6">
           <ArrowLeft className="w-5 h-5 mr-2" />
           Back to Packages
         </Link>

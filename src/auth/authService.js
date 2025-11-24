@@ -22,8 +22,10 @@ const isAuthenticated = () => {
   return token ? true : false;
 };
 
-export default {
+const authService = {
   login,
   logout,
   isAuthenticated,
 };
+
+export default authService;

@@ -1,39 +1,4 @@
 {
-  "header": {
-    "appName": "TraveloEra",
-    "home": "Home",
-    "packages": "Packages"
-  },
-  "common": {
-    "loading": "Loading packages..."
-  },
-  "homePage": {
-    "hero": {
-      "title": "Explore the World, Worry-Free.",
-      "subtitle": "Curated packages for every type of traveler. Find your perfect escape.",
-      "cta": "View All Packages"
-    },
-    "featuredPackages": {
-      "title": "Our Handpicked Favorites",
-      "noPackages": "No packages available at the moment.",
-      "seeAllDestinations": "See All {{count}} Destinations"
-    },
-    "testimonials": {
-      "title": "What Our Travelers Say"
-    },
-    "blog": {
-      "title": "Travel Inspiration",
-      "articleTitle": "10 Tips for Budget Travel in Southeast Asia",
-      "description": "Read our latest guide on how to maximize your adventure without breaking the bank.",
-      "cta": "Read Article"
-    }
-  },
-  "packageListingPage": {
-    "title": "Our Exclusive Travel Packages",
-    "searchPlaceholder": "Search packages or locations...",
-    "noPackagesFound": "No packages found matching your criteria.",
-    "noPackagesSuggestion": "Try clearing some filters or changing your search term."
-  },
   "admin": {
     "addPackage": {
       "failed": "Failed to add package",
@@ -75,34 +40,6 @@
       "addButton": "Add Package",
       "editButton": "Edit",
       "deleteButton": "Delete"
-    }
-  },
-  "components": {
-    "filterSidebar": {
-      "title": "Filters",
-      "clearAllButton": "Clear All",
-      "packageType": "Package Type",
-      "theme": "Theme",
-      "location": "Location",
-      "applyButton": "Apply Filters"
-    },
-    "inquiryForm": {
-      "fetchError": "Failed to fetch package details",
-      "staticLoadError": "Could not load packages data.",
-      "packageNotFound": "Package not found",
-      "staticDataError": "Could not load package data. Please try again later.",
-      "whatsappMessage": "I am inquiring about the package: {{packageName}}.\n\nName: {{name}}\nEmail: {{email}}\nMessage: {{message}}",
-      "submitFailed": "Failed to submit inquiry",
-      "submitError": "Error submitting inquiry: {{error}}",
-      "thankYouTitle": "Thank You!",
-      "inquiryReceived": "Your inquiry for <b>{{packageName}}</b> has been received. We'll be in touch shortly!",
-      "backToPackageButton": "Back to Package",
-      "inquireAboutTitle": "Inquire About {{packageName}}",
-      "fullNameLabel": "Full Name",
-      "emailLabel": "Email",
-      "messageLabel": "Message",
-      "submittingButton": "Submitting...",
-      "submitButton": "Submit Inquiry"
     }
   }
 }
