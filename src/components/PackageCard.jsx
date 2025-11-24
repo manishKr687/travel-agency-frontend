@@ -19,8 +19,7 @@ const PackageCard = ({ packageItem }) => {
       onClick={handleCardClick} 
       className="bg-white rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 overflow-hidden border border-gray-100 block h-full flex flex-col cursor-pointer"
     >
-      {/* We should fix the height of these div's. Currently without that all the sections of one card
-      does not align with the sections of other card. */}
+      {}
       <div className="relative h-48 overflow-hidden">
         <img
           src={packageItem.image}
@@ -56,14 +55,14 @@ const PackageCard = ({ packageItem }) => {
         </div>
 
         <div className="flex items-center justify-between mt-auto border-t pt-4">
-          <p className="text-2xl font-extrabold text-teal-600">
+          <p className="text-2xl font-extrabold text-gray-600">
             <span className="text-xl mr-0.5">$</span>{packageItem.price.toLocaleString()}
           </p>
           <button
             onClick={handleInquireClick}
-            className="px-4 py-2 bg-teal-600 text-white font-semibold text-sm rounded-lg hover:bg-teal-700 transition duration-300 shadow-lg"
+            className="px-4 py-2 bg-slate-500 text-white font-semibold text-sm rounded-lg hover:bg-neutral-700 transition duration-300 shadow-lg"
           >
-            Inquire Now
+            Inquiry Now
           </button>
         </div>
       </div>

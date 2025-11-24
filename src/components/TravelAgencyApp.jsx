@@ -41,7 +41,7 @@ const TravelAgencyApp = () => {
         <div className="max-w-7xl mx-auto text-center md:text-left grid grid-cols-1 md:grid-cols-3 gap-8">
           <div>
             {/* TODO: replace "TRVL Agency" with actual name */}
-            <h4 className="text-xl font-bold mb-3 text-teal-400">TRVL Agency</h4>
+            <h4 className="text-xl font-bold mb-3 text-teal-400">TRVEL Agency</h4>
             <p className="text-gray-400 text-sm">
               Curating unforgettable experiences since 2024. Your journey starts here.
             </p>
