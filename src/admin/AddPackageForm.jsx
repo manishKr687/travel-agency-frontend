@@ -65,7 +65,7 @@ const AddPackageForm = () => {
           />
         </div>
 
-        <div className="grid grid-cols-2 gap-4">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div>
             <label className="block text-gray-700">{t('admin.addPackage.typeLabel')}</label>
             <input
@@ -91,7 +91,7 @@ const AddPackageForm = () => {
           </div>
         </div>
 
-        <div className="grid grid-cols-3 gap-4 mt-4">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mt-4">
           <div>
             <label className="block text-gray-700">{t('admin.addPackage.priceLabel')}</label>
             <input
