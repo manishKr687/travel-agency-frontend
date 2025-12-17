@@ -1,50 +1,107 @@
 [
   {
     "id": 1,
-    "name": "Mystical Bali Retreat",
-    "type": "Luxury",
-    "theme": "Relaxation",
-    "price": 4500,
+    "name": "Valmiki Tiger Reserve",
+    "type": ["Standard"],
+    "theme": ["Wildlife", "Nature"],
+    "price": 4999,
     "duration": 7,
-    "location": "Indonesia",
-    "image": "https://placehold.co/800x600/10b981/ffffff?text=Bali",
+    "location": "Valmikinagar, Bihar, India",
+    "image": "https://placehold.co/800x600/166534/ffffff?text=Valmiki+Tiger+Reserve",
     "offer": {
-      "discountPercentage": 15,
-      "description": "Book by December 31st!"
-    }
+      "discountPercentage": 10,
+      "description": "Book by December 31st for an exclusive wildlife escape!"
+    },
+    "isOfferApplied": false
   },
   {
     "id": 2,
-    "name": "Tokyo Neon Adventure",
-    "type": "Premium",
-    "theme": "City Break",
-    "price": 3200,
-    "duration": 5,
-    "location": "Japan",
-    "image": "https://placehold.co/800x600/f59e0b/ffffff?text=Tokyo"
+    "name": "Sikkim Himalayan Retreat",
+    "type": ["Luxury","Standard"],
+    "theme": ["Nature", "Adventure"],
+    "price": 8999,
+    "duration": 6,
+    "location": "Sikkim, India",
+    "image": "https://placehold.co/800x600/2563eb/ffffff?text=Sikkim",
+    "offer": {
+      "discountPercentage": 10,
+      "description": "Limited-time offer on Himalayan escapes!"
+    },
+    "isOfferApplied": false
   },
   {
     "id": 3,
-    "name": "Alps Hiking Expedition",
-    "type": "Standard",
-    "theme": "Adventure",
-    "price": 2100,
-    "duration": 10,
-    "location": "Switzerland",
-    "image": "https://placehold.co/800x600/3b82f6/ffffff?text=Alps",
+    "name": "Chitwan Jungle Safari Experience",
+    "type": ["Standard"],
+    "theme": ["Wildlife", "Adventure"],
+    "price": 5999,
+    "duration": 5,
+    "location": "Chitwan National Park, Nepal",
+    "image": "https://placehold.co/800x600/15803d/ffffff?text=Chitwan",
     "offer": {
-      "discountPercentage": 10,
-      "description": "Adventure awaits!"
-    }
+      "discountPercentage": 12,
+      "description": "Special jungle safari deal – limited seats!"
+    },
+    "isOfferApplied": false
   },
   {
     "id": 4,
-    "name": "Amazon Rainforest Tour",
-    "type": "Budget",
-    "theme": "Nature",
-    "price": 950,
+    "name": "Jim Corbett Wildlife Escape",
+    "type": ["Standard"],
+    "theme": ["Wildlife", "Nature"],
+    "price": 5999,
     "duration": 4,
-    "location": "Brazil",
-    "image": "https://placehold.co/800x600/ef4444/ffffff?text=Amazon"
+    "location": "Corbett National Park, Uttarakhand, India",
+    "image": "https://placehold.co/800x600/14532d/ffffff?text=Corbett+National+Park",
+    "offer": {
+      "discountPercentage": 12,
+      "description": "Book now for an affordable jungle adventure!"
+    },
+    "isOfferApplied": false
+  },
+  {
+  "id": 5,
+  "name": "Nainital Lake & Hills Getaway",
+  "type": ["Standard"],
+  "theme": ["Adventure", "Relaxation"],
+  "price": 4999,
+  "duration": 4,
+  "location": "Nainital, Uttarakhand, India",
+  "image": "https://placehold.co/800x600/0ea5e9/ffffff?text=Nainital",
+  "offer": {
+    "discountPercentage": 10,
+    "description": "Perfect budget escape to the hills!"
+  },
+  "isOfferApplied": false
+  },
+  {
+  "id": 6,
+  "name": "Kasol Backpacker Escape",
+  "type": ["Standard"],
+  "theme": ["Adventure", "Relaxation"],
+  "price": 3999,
+  "duration": 3,
+  "location": "Kasol, Himachal Pradesh, India",
+  "image": "https://placehold.co/800x600/22c55e/ffffff?text=Kasol",
+    "offer": {
+      "discountPercentage": 8,
+      "description": "Grab this pocket-friendly mountain getaway!"
+    },
+    "isOfferApplied": false
+  },
+  {
+  "id": 7,
+  "name": "Shimla Hill Station Getaway",
+  "type": ["Standard"],
+  "theme": ["Adventure", "Relaxation"],
+  "price": 3999,
+  "duration": 3,
+  "location": "Shimla, Himachal Pradesh, India",
+  "image": "https://placehold.co/800x600/64748b/ffffff?text=Shimla",
+  "offer": {
+    "discountPercentage": 8,
+    "description": "Affordable escape to the Queen of Hills!"
+  },
+  "isOfferApplied": false
   }
 ]

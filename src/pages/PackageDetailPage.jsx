@@ -56,26 +56,28 @@ const PackageDetailPage = () => {
               </span>
               <span className="flex items-center font-medium">
                 <Zap className="w-5 h-5 mr-2 text-teal-500" />
-                {packageItem.theme || 'General'}
+                {(packageItem.theme && packageItem.theme.join(', ')) || 'General'}
               </span>
             </div>
 
-            <div className="mb-6">
-              <span className={`px-4 py-1.5 text-sm font-semibold rounded-full shadow-md ${
-                (packageItem.type || 'Standard') === 'Luxury' ? 'bg-yellow-500 text-yellow-900' :
-                (packageItem.type || 'Standard') === 'Premium' ? 'bg-indigo-500 text-white' :
-                (packageItem.type || 'Standard') === 'Standard' ? 'bg-teal-500 text-white' :
-                'bg-gray-600 text-white'
-              }`}>
-                {(packageItem.type || 'Standard')} Package
-              </span>
+            <div className="mb-6 flex flex-wrap gap-2">
+              {(packageItem.type || ['Standard']).map((type, index) => (
+                <span key={index} className={`px-4 py-1.5 text-sm font-semibold rounded-full shadow-md ${
+                  type === 'Luxury' ? 'bg-yellow-500 text-yellow-900' :
+                  type === 'Premium' ? 'bg-indigo-500 text-white' :
+                  type === 'Standard' ? 'bg-teal-500 text-white' :
+                  'bg-gray-600 text-white'
+                }`}>
+                  {type} Package
+                </span>
+              ))}
             </div>
 
             <p className="text-gray-600 mb-8 leading-relaxed">
-              Immerse yourself in the breathtaking landscapes of {packageItem.destination}. This {packageItem.duration}-day {(packageItem.theme || 'General').toLowerCase()} adventure is a {(packageItem.type || 'Standard').toLowerCase()} experience designed to create lasting memories. Explore vibrant cultures, stunning natural wonders, and enjoy world-class amenities.
+              Immerse yourself in the breathtaking landscapes of {packageItem.destination}. This {packageItem.duration}-day {((packageItem.theme && packageItem.theme.join(', ')) || 'General').toLowerCase()} adventure is a {(packageItem.type || ['Standard']).join(' / ').toLowerCase()} experience designed to create lasting memories. Explore vibrant cultures, stunning natural wonders, and enjoy world-class amenities.
             </p>
 
-            {packageItem.offer && (
+            {packageItem.isOfferApplied && (
               <div className="bg-green-50 border-l-4 border-green-500 p-4 rounded-r-lg mb-6">
                 <p className="text-sm text-green-800 font-semibold mb-1">Special Offer!</p>
                 <p className="text-lg text-green-700">{packageItem.offer.description} Get {packageItem.offer.discountPercentage}% off!</p>
@@ -83,7 +85,7 @@ const PackageDetailPage = () => {
             )}
 
             <div className="bg-teal-50 border-l-4 border-teal-500 p-4 rounded-r-lg mb-8">
-              {packageItem.offer ? (
+              {packageItem.isOfferApplied ? (
                 <>
                   <p className="text-xl font-semibold text-gray-500 line-through">
                     <span className="text-lg mr-1">$</span>{packageItem.price.toLocaleString()}

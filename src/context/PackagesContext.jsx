@@ -1,5 +1,6 @@
 import React, { createContext, useState, useEffect, useContext } from "react";
-import { getPackages } from "../api/packages"; // Assuming getPackages fetches all packages
+import { getPackages } from "../api/packages"; 
+import { SITE_MODE } from "../api/packages"; // assuming SITE_MODE exported
 
 const PackagesContext = createContext(null);
 
@@ -9,19 +10,35 @@ export const PackagesProvider = ({ children }) => {
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    const fetchAllPackages = async () => {
+    const loadStaticPackages = async () => {
       try {
-        setLoading(true);
-        const data = await getPackages(); // getPackages should handle SITE_MODE internally
+        const res = await fetch("/packages.json", { cache: "no-store" });
+        if (!res.ok) throw new Error("Failed to load static packages.json");
+        const data = await res.json();
+
         setPackages(data);
+        setLoading(false);
       } catch (err) {
+        console.error("Static mode package load failed:", err);
         setError(err);
-        console.error("Failed to fetch all packages:", err);
-      } finally {
         setLoading(false);
       }
     };
-    fetchAllPackages();
+
+    const loadDynamicPackages = async () => {
+      try {
+        const data = await getPackages(); // expects API fetch
+        setPackages(data);
+        setLoading(false);
+      } catch (err) {
+        console.error("Dynamic package load failed:", err);
+        setError(err);
+        setLoading(false);
+      }
+    };
+
+    // Switch based on MODE
+    SITE_MODE === "static" ? loadStaticPackages() : loadDynamicPackages();
   }, []);
 
   return (
@@ -34,7 +51,7 @@ export const PackagesProvider = ({ children }) => {
 export const usePackages = () => {
   const context = useContext(PackagesContext);
   if (!context) {
-    throw new Error("usePackages must be used within a PackagesProvider");
+    throw new Error("usePackages must be used inside a PackagesProvider");
   }
   return context;
 };

@@ -1,16 +1,38 @@
 import React from "react";
 import { X } from "lucide-react";
 
-const FilterPanel = ({
-  isOpen,
-  onClose,
-  filters,
-  setFilters,
-  onApply,
-}) => {
-  const types = ["Luxury", "Premium", "Standard"];
-  const themes = ["Adventure", "Romantic", "Family", "Nature", "Religious"];
-  const locations = ["Goa", "Manali", "Jaipur", "Udaipur", "Kerala", "Dubai"];
+const FilterPanel = ({ isOpen, onClose, filters, setFilters, onApply, packages = [] }) => {
+  const types = [...new Set(packages.flatMap(p => p.type))];
+  const themes = [...new Set(packages.flatMap(p => p.theme))];
+  
+  // Derive countries, states, and cities from packages
+  const locations = packages.map(p => {
+    const parts = p.location.split(', ').map(part => part.trim());
+    return {
+      city: parts[0],
+      state: parts.length > 2 ? parts[1] : null,
+      country: parts.length > 1 ? parts[parts.length - 1] : parts[0]
+    };
+  });
+
+  const countries = [...new Set(locations.map(l => l.country).filter(Boolean))];
+  
+  const states = [...new Set(
+    locations
+      .filter(l => filters.country.length === 0 || filters.country.includes(l.country))
+      .map(l => l.state)
+      .filter(Boolean)
+  )];
+
+  const cities = [...new Set(
+    locations
+      .filter(l => 
+        (filters.country.length === 0 || filters.country.includes(l.country)) &&
+        (filters.state.length === 0 || filters.state.includes(l.state))
+      )
+      .map(l => l.city)
+      .filter(Boolean)
+  )];
 
   const handleToggle = (category, value) => {
     setFilters((prev) => {
@@ -22,6 +44,15 @@ const FilterPanel = ({
           : [...prev[category], value],
       };
     });
+  };
+
+  const handleDropdownChange = (category, value) => {
+    setFilters((prev) => ({
+      ...prev,
+      [category]: value,
+      // When changing state, reset city
+      ...(category === 'state' && { city: '' }),
+    }));
   };
 
   return (
@@ -45,7 +76,9 @@ const FilterPanel = ({
       >
         {/* MOBILE HEADER */}
         <div className="flex items-center justify-between mb-6 lg:hidden">
-          <h2 className="text-2xl font-heading font-bold text-secondary">Filters</h2>
+          <h2 className="text-2xl font-heading font-bold text-secondary">
+            Filters
+          </h2>
           <button onClick={onClose}>
             <X className="w-6 h-6 text-gray-700 hover:text-secondary transition" />
           </button>
@@ -53,12 +86,11 @@ const FilterPanel = ({
 
         {/* PANEL CONTENT */}
         <div className="space-y-8">
-
-          {/* SECTION TEMPLATE */}
+          {/* Checkbox Sections */}
           {[
             { title: "Package Type", key: "type", values: types },
             { title: "Themes", key: "theme", values: themes },
-            { title: "Locations", key: "location", values: locations },
+            { title: "Country", key: "country", values: countries },
           ].map((section) => (
             <div
               key={section.key}
@@ -67,7 +99,6 @@ const FilterPanel = ({
               <h4 className="text-lg font-semibold text-secondary mb-3">
                 {section.title}
               </h4>
-
               <div className="space-y-3">
                 {section.values.map((item) => (
                   <label
@@ -102,7 +133,6 @@ const FilterPanel = ({
                         />
                       </svg>
                     </div>
-
                     <span className="text-gray-800 group-hover:text-secondary transition font-medium">
                       {item}
                     </span>
@@ -111,6 +141,42 @@ const FilterPanel = ({
               </div>
             </div>
           ))}
+
+          {/* State Dropdown */}
+          <div className="bg-white/70 backdrop-blur-lg rounded-2xl shadow-sm border border-gray-200 p-5 hover:shadow-md transition">
+            <h4 className="text-lg font-semibold text-secondary mb-3">State</h4>
+            <select
+              value={filters.state}
+              onChange={(e) => handleDropdownChange('state', e.target.value)}
+              className="w-full p-2 border border-gray-300 rounded-md bg-white"
+              disabled={states.length === 0}
+            >
+              <option value="">All States</option>
+              {states.map((item) => (
+                <option key={item} value={item}>
+                  {item}
+                </option>
+              ))}
+            </select>
+          </div>
+
+          {/* City Dropdown */}
+          <div className="bg-white/70 backdrop-blur-lg rounded-2xl shadow-sm border border-gray-200 p-5 hover:shadow-md transition">
+            <h4 className="text-lg font-semibold text-secondary mb-3">City</h4>
+            <select
+              value={filters.city}
+              onChange={(e) => handleDropdownChange('city', e.target.value)}
+              className="w-full p-2 border border-gray-300 rounded-md bg-white"
+              disabled={cities.length === 0}
+            >
+              <option value="">All Cities</option>
+              {cities.map((item) => (
+                <option key={item} value={item}>
+                  {item}
+                </option>
+              ))}
+            </select>
+          </div>
         </div>
 
         {/* BUTTONS */}
@@ -124,7 +190,7 @@ const FilterPanel = ({
           </button>
 
           <button
-            onClick={() => setFilters({ type: [], theme: [], location: [] })}
+            onClick={() => setFilters({ type: [], theme: [], country: [], state: '', city: '' })}
             className="flex-1 border border-gray-300 py-3 rounded-xl text-gray-700 
             hover:bg-gray-100 hover:text-secondary transition"
           >

@@ -38,20 +38,25 @@ const PackageCard = ({ packageItem }) => {
         />
 
         {/* BADGE */}
-        <span
-          className={`absolute top-3 right-3 px-3 py-1 text-xs font-semibold rounded-full shadow-md ${
-            packageItem.type === "Luxury"
-              ? "bg-yellow-400 text-yellow-900"
-              : packageItem.type === "Premium"
-              ? "bg-indigo-500 text-white"
-              : packageItem.type === "Standard"
-              ? "bg-teal-600 text-white"
-              : "bg-gray-600 text-white"
-          }`}
-        >
-          {packageItem.type}
-        </span>
-        {packageItem.offer && (
+        <div className="absolute top-3 right-3 flex gap-2">
+          {packageItem.type.map((type, index) => (
+            <span
+              key={index}
+              className={`px-3 py-1 text-xs font-semibold rounded-full shadow-md ${
+                type === "Luxury"
+                  ? "bg-yellow-400 text-yellow-900"
+                  : type === "Premium"
+                  ? "bg-indigo-500 text-white"
+                  : type === "Standard"
+                  ? "bg-teal-600 text-white"
+                  : "bg-gray-600 text-white"
+              }`}
+            >
+              {type}
+            </span>
+          ))}
+        </div>
+        {packageItem.isOfferApplied && (
           <span className="absolute bottom-3 left-3 px-3 py-1 text-xs font-semibold rounded-full shadow-md bg-green-500 text-white">
             {packageItem.offer.discountPercentage}% OFF
           </span>
@@ -79,19 +84,23 @@ const PackageCard = ({ packageItem }) => {
 
           <span className="flex items-center">
             <Zap className="w-4 h-4 mr-1 text-primary" />
-            {packageItem.theme}
+            {packageItem.theme && packageItem.theme.join(', ')}
           </span>
         </div>
 
         {/* PRICE + CTA */}
         <div className="flex items-center justify-between mt-auto border-t pt-4">
-          {packageItem.offer ? (
+          {packageItem.isOfferApplied ? (
             <div className="flex flex-col">
               <p className="text-sm text-gray-500 line-through">
                 ₹{packageItem.price.toLocaleString("en-IN")}
               </p>
               <p className="text-2xl font-extrabold text-red-600">
-                ₹{(packageItem.price * (1 - packageItem.offer.discountPercentage / 100)).toLocaleString("en-IN")}
+                ₹
+                {(
+                  packageItem.price *
+                  (1 - packageItem.offer.discountPercentage / 100)
+                ).toLocaleString("en-IN")}
               </p>
             </div>
           ) : (

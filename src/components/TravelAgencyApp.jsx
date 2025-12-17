@@ -8,7 +8,7 @@ import ScrollToTop from './ScrollToTop';
 import { usePackages } from '../context/PackagesContext';
 
 const TravelAgencyApp = () => {
-  const location = useLocation();
+
   const { packages, loading } = usePackages();
 
   return (

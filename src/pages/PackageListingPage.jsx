@@ -7,41 +7,58 @@ import FilterPanel from "../components/FilterPanel"; // NEW COMPONENT
 const PackageListingPage = () => {
   const { packages, loading } = useOutletContext();
 
-  const [filters, setFilters] = useState({
-    type: [],
-    theme: [],
-    location: [],
-  });
-
-  const [isFilterOpen, setIsFilterOpen] = useState(false);
-  const [searchTerm, setSearchTerm] = useState("");
-
-  // FILTER LOGIC
-  const filteredPackages = useMemo(() => {
-    if (loading || !packages) return [];
-
-    return packages.filter((pkg) => {
-      const name = pkg.name?.toLowerCase() || "";
-      const loc = pkg.location?.toLowerCase() || "";
-      const term = searchTerm.toLowerCase();
-
-      const matchesSearch = name.includes(term) || loc.includes(term);
-      if (!matchesSearch) return false;
-
-      const matchesType =
-        filters.type.length === 0 || filters.type.includes(pkg.type);
-
-      const matchesTheme =
-        filters.theme.length === 0 || filters.theme.includes(pkg.theme);
-
-      const matchesLocation =
-        filters.location.length === 0 ||
-        filters.location.includes(pkg.location);
-
-      return matchesType && matchesTheme && matchesLocation;
+    const [filters, setFilters] = useState({
+      type: [],
+      theme: [],
+      country: [],
+      state: '',
+      city: '',
     });
-  }, [filters, searchTerm, packages, loading]);
-
+  
+    const [isFilterOpen, setIsFilterOpen] = useState(false);
+    const [searchTerm, setSearchTerm] = useState("");
+  
+    // FILTER LOGIC
+    const filteredPackages = useMemo(() => {
+      if (loading || !packages) return [];
+  
+      return packages.filter((pkg) => {
+        const locPartsRaw = pkg.location.split(', ').map(part => part.trim());
+        const cityRaw = locPartsRaw[0];
+        const stateRaw = locPartsRaw.length > 2 ? locPartsRaw[1] : null;
+        const countryRaw = locPartsRaw.length > 1 ? locPartsRaw[locPartsRaw.length - 1] : locPartsRaw[0];
+  
+        const city = cityRaw.toLowerCase();
+        const state = stateRaw ? stateRaw.toLowerCase() : null;
+        const country = countryRaw.toLowerCase();
+  
+        const lowercasedSearchTerm = searchTerm.toLowerCase();
+        const matchesSearch =
+          pkg.name.toLowerCase().includes(lowercasedSearchTerm) ||
+          city.includes(lowercasedSearchTerm) ||
+          (state && state.includes(lowercasedSearchTerm)) ||
+          country.includes(lowercasedSearchTerm);
+  
+        if (!matchesSearch) return false;
+  
+        const matchesType =
+          filters.type.length === 0 ||
+          filters.type.some(t => pkg.type.includes(t));
+  
+        const matchesTheme =
+          filters.theme.length === 0 || filters.theme.some(t => pkg.theme.includes(t));
+  
+        const matchesCountry =
+          filters.country.length === 0 ||
+          filters.country.includes(countryRaw);
+        
+        const matchesState = !filters.state || (stateRaw && filters.state === stateRaw);
+  
+        const matchesCity = !filters.city || (filters.city === cityRaw);
+  
+        return matchesType && matchesTheme && matchesCountry && matchesState && matchesCity;
+      });
+    }, [filters, searchTerm, packages, loading]);
   return (
     <main className="min-h-screen bg-gray-50 font-body pt-28 pb-16">
       {/* PAGE HEADER */}
@@ -90,6 +107,7 @@ const PackageListingPage = () => {
               isOpen={isFilterOpen}
               onClose={() => setIsFilterOpen(false)}
               onApply={() => setIsFilterOpen(false)}
+              packages={packages}
             />
           </aside>
 
@@ -119,14 +137,13 @@ const PackageListingPage = () => {
                 <p className="text-gray-600 mt-2 max-w-sm mx-auto">
                   Try adjusting your search or filters.
                 </p>
-                <button
-                  onClick={() => {
-                    setFilters({ type: [], theme: [], location: [] });
-                    setSearchTerm("");
-                  }}
-                  className="mt-5 px-6 py-2 bg-secondary text-white rounded-full hover:bg-secondary/90 transition"
-                >
-                  Reset Filters
+                                <button
+                                  onClick={() => {
+                                    setFilters({ type: [], theme: [], country: [], state: '', city: '' });
+                                    setSearchTerm("");
+                                  }}
+                                  className="mt-5 px-6 py-2 bg-secondary text-white rounded-full hover:bg-secondary/90 transition"
+                                >                  Reset Filters
                 </button>
               </div>
             )}

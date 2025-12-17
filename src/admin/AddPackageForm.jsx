@@ -20,8 +20,8 @@ const AddPackageForm = () => {
 
     const newPackage = {
       name,
-      type,
-      theme,
+      type: type.split(',').map(t => t.trim()),
+      theme: theme.split(',').map(t => t.trim()),
       price: parseInt(price),
       duration: parseInt(duration),
       location,
