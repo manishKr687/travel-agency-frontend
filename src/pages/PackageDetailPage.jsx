@@ -10,7 +10,7 @@ const PackageDetailPage = () => {
     return <div className="text-center py-20">Loading package details...</div>;
   }
 
-  const packageItem = packages.find(p => p.id == id);
+  const packageItem = packages.find(p => p.id === Number(id));
 
   if (!packageItem) {
     return (
