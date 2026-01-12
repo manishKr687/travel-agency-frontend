@@ -107,7 +107,7 @@ const PackageDetailPage = () => {
               to={`/inquire/${packageItem.id}`}
               className="w-full px-8 py-4 bg-teal-600 text-white font-bold text-lg rounded-xl shadow-2xl hover:bg-teal-700 transform hover:scale-105 transition duration-300 flex items-center justify-center"
             >
-              Inquire Now
+              Inquiry Now
             </Link>
           </div>
         </div>

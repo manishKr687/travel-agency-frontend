@@ -1,21 +1,20 @@
 [
   {
     "id": 1,
-    "quote": "The Kerala Backwaters retreat was absolutely peaceful. Everything was beautifully arranged!",
-    "name": "Aarav Mehta",
-    "location": "Mumbai, India"
+    "quote": "Our Sikkim trip with Himalyan was amazing. The mountain views and peaceful monasteries were perfectly planned.",
+    "name": "Ankit Verma",
+    "location": "Kolkata, India"
   },
   {
     "id": 2,
-    "quote": "The Ladakh adventure was thrilling! Superb planning and amazing local guides.",
-    "name": "Priya Sharma",
-    "location": "Delhi, India"
+    "quote": "Himalyan made our Chitwan visit unforgettable. The jungle safari and local experience were excellent.",
+    "name": "Neha Joshi",
+    "location": "Kathmandu, Nepal"
   },
   {
     "id": 3,
-    "quote": "The Goa beach getaway was unforgettable. The agency took care of every little detail!",
-    "name": "Rohit Kumar",
-    "location": "Bangalore, India"
+    "quote": "The Kasol trip organized by Himalyan was wonderful. The riverside stay and trekking were smooth and enjoyable.",
+    "name": "Karan Singh",
+    "location": "Chandigarh, India"
   }
 ]
-

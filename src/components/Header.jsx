@@ -9,7 +9,7 @@ const Header = () => {
     <header className="fixed top-0 left-0 w-full z-50 bg-white/70 backdrop-blur-lg shadow-sm">
       <div className="max-w-7xl mx-auto px-6 py-3 flex justify-between items-center">
         <Link to="/" className="font-heading text-2xl text-secondary font-bold tracking-wide">
-          Himalyan
+          Himalayan Adventure
         </Link>
 
         {/* Desktop Navigation */}

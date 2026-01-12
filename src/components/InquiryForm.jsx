@@ -13,7 +13,7 @@ const InquiryForm = ({ packageName, onSubmit, isSubmitting }) => {
   return (
     <>
       <h3 className="text-3xl font-heading font-bold text-secondary mb-6">
-        Inquire About <span className="text-primary">{packageName}</span>
+        Inquiry About <span className="text-primary">{packageName}</span>
       </h3>
 
       <form onSubmit={handleSubmit} className="space-y-5">

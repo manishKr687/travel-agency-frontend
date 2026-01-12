@@ -1,3 +1,35 @@
+/**
+ * @file PackageListingPage.jsx
+ * @description This file contains the main page component for displaying and filtering travel packages.
+ * 
+ * @component PackageListingPage
+ * @summary Renders a searchable and filterable grid of travel packages.
+ * 
+ * @functionalities
+ * 1.  **Data Consumption**: It receives the master list of `packages` and a `loading` state from a parent route via the `useOutletContext` hook. It does not fetch data directly.
+ * 
+ * 2.  **State Management**:
+ *     - `searchTerm`: Manages the text value of the main search input field.
+ *     - `filters`: An object that holds the criteria selected by the user in the `FilterPanel` component (e.g., package type, theme, country, state, city).
+ *     - `isFilterOpen`: A boolean state to toggle the visibility of the filter panel on mobile devices.
+ * 
+ * 3.  **Advanced Filtering**:
+ *     - The component uses the `useMemo` hook to create a `filteredPackages` array. This is an optimization that ensures the complex filtering logic only re-runs when the `packages`, `filters`, or `searchTerm` change.
+ *     - The filtering logic matches the `searchTerm` against multiple package properties (name, location).
+ *     - It further refines the list based on the active `filters` selected in the `FilterPanel`.
+ * 
+ * 4.  **UI Rendering**:
+ *     - Displays a main search bar and a "Filters" button (for mobile).
+ *     - Renders the `FilterPanel` component, providing it with the necessary state and state setters to function.
+ *     - Conditionally renders the main content area:
+ *       a. **Loading State**: Shows a grid of animated skeleton loaders while the package data is being fetched.
+ *       b. **Results State**: If there are filtered packages, it maps over the `filteredPackages` array and renders a `PackageCard` for each item.
+ *       c. **Empty State**: If no packages match the current search and filter criteria, it displays a "No Packages Found" message with a convenient "Reset Filters" button.
+ * 
+ * @children
+ * - `PackageCard`: Renders the individual card for each travel package.
+ * - `FilterPanel`: Renders the sidebar with various filtering options.
+ */
 import React, { useState, useMemo } from "react";
 import { useOutletContext } from "react-router-dom";
 import { Search, Filter, X } from "lucide-react";

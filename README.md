@@ -1,96 +1,97 @@
-# Travel Agency Frontend
+# ![Travel Agency Frontend](https://placehold.co/600x100/10b981/ffffff?text=Travel+Agency+Frontend)
 
-A React-based frontend application for a travel agency, featuring public-facing package listings and an authenticated admin panel for managing packages and inquiries.
+[![Build Status](https://img.shields.io/travis/your_username/travel-agency-frontend.svg?style=flat-square)](https://travis-ci.org/your_username/travel-agency-frontend)
+[![Coverage Status](https://img.shields.io/coveralls/github/your_username/travel-agency-frontend/main.svg?style=flat-square)](https://coveralls.io/github/your_username/travel-agency-frontend?branch=main)
+[![License](https://img.shields.io/github/license/your_username/travel-agency-frontend.svg?style=flat-square)](./LICENSE)
 
-## Features
+This is the frontend for the Travel Agency application, a React-based web app for browsing and managing travel packages.
 
-### Public-Facing Features
-*   **Home Page:** Introduction to the travel agency, featured packages, testimonials, and "Why Choose Us" section.
-*   **Package Listing:** Browse available travel packages, with filtering capabilities (implied, but not explicitly seen in `packages.js` beyond `getPackages`).
-*   **Package Detail:** View detailed information for individual travel packages.
-*   **Inquiry Form:** Submit inquiries for specific packages.
+## ✨ Features
 
-### Admin Panel Features (Authenticated)
-*   **Admin Login:** Secure login page for administrators.
-*   **Dashboard:** Overview of administrative tasks.
-*   **Manage Inquiries:** View and manage customer inquiries (currently mocked data).
-*   **Manage Packages:** Add, view, and delete travel packages.
-    *   **Add Package:** Form to create new travel packages.
+*   **Browse Travel Packages:** View a list of available travel packages with filtering options.
+*   **View Package Details:** See detailed information for each travel package.
+*   **Inquiry Form:** Submit inquiries for specific travel packages.
+*   **Admin Dashboard:** A secure area for administrators to manage packages and inquiries.
+*   **Internationalization:** The application supports multiple languages.
+*   **Responsive Design:** The layout is optimized for a seamless experience across all devices.
 
-## How it Works
+## 🚀 Getting Started
 
-### Project Structure
-The application is built with React and uses `react-router-dom` for navigation. State management is handled component-locally or via context (e.g., `PackagesContext.jsx`). Internationalization is provided by `i18next`. Styling is done with Tailwind CSS.
-
-### Routing
-*   **Public Routes:** Handled by `<TravelAgencyApp />`, including home, package listings, package details, and inquiry forms.
-*   **Admin Routes:** Protected by a `<PrivateRoute />` component which checks for authentication status using `authService`. If a user is not authenticated, they are redirected to the `/admin/login` page.
-
-### Authentication
-The admin panel uses a simple token-based authentication mechanism.
-*   **Login:** Admin users log in with credentials (currently hardcoded to `admin`/`password` for demonstration). A "fake-jwt-token" is stored in `localStorage`.
-*   **Authorization:** The presence of this token in `localStorage` determines if a user is authenticated. API requests to protected endpoints (e.g., `addPackage`, `deletePackage`) include this token in the `Authorization` header.
-
-### Data Flow
-*   **Packages:**
-    *   **Public:** Fetches packages using `getPackages()`. This function supports two modes:
-        *   **Static Mode (`REACT_APP_SITE_MODE=static`):** Packages are loaded from a local `public/packages.json` file.
-        *   **Dynamic Mode (default):** Packages are fetched from a backend API endpoint (`/packages`).
-    *   **Admin:** `addPackage()` and `deletePackage()` functions interact with the backend API to modify package data. These operations require administrator authentication.
-*   **Inquiries:**
-    *   **Public:** (Implicit) Submission of inquiries is likely handled by a form in `InquiryPage.jsx` which would typically send data to a backend API (not yet implemented in `src/api/inquiries.js`).
-    *   **Admin:** `getInquiries()` retrieves a list of inquiries. Currently, this function returns mocked data.
-
-## Getting Started
+These instructions will get you a copy of the project up and running on your local machine for development and testing purposes.
 
 ### Prerequisites
-*   Node.js (LTS version recommended)
-*   npm or yarn
+
+*   [Node.js](https://nodejs.org/) (v14 or later)
+*   [npm](https://www.npmjs.com/) (v6 or later)
 
 ### Installation
 
-1.  Clone the repository:
-    ```bash
-    git clone <repository-url>
+1.  Clone the repo:
+    ```sh
+    git clone https://github.com/your_username/travel-agency-frontend.git
+    ```
+2.  Navigate to the project directory:
+    ```sh
     cd travel-agency-frontend
     ```
-2.  Install dependencies:
-    ```bash
+3.  Install NPM packages:
+    ```sh
     npm install
-    # or
-    yarn install
     ```
 
 ### Running the Application
 
-*   **Development Mode:**
-    To run the application in development mode:
-    ```bash
-    npm start
-    # or
-    yarn start
-    ```
-    This runs the app on [http://localhost:3000](http://localhost:3000). The page will reload if you make edits.
+To start the development server, run:
 
-*   **Building for Production:**
-    To build the application for production:
-    ```bash
-    npm run build
-    # or
-    yarn build
-    ```
-    This command builds the app for production to the `build` folder. It correctly bundles React in production mode and optimizes the build for the best performance.
+```sh
+npm start
+```
 
-### Environment Variables
+This will open the application in your default browser at `http://localhost:3000`.
 
-*   `REACT_APP_SITE_MODE`: Set to `static` to load package data from `public/packages.json`. Otherwise, it defaults to fetching data from the backend API.
-*   A backend API is expected to be running at `http://localhost:8082` (configured via `proxy` in `package.json`).
+## 🛠️ Available Scripts
 
-## Key Technologies Used
+In the project directory, you can run:
 
-*   React 19
-*   React Router DOM 7
-*   i18next / React i18next
-*   Tailwind CSS
-*   Framer Motion (for animations)
-*   Lucide React (for icons)
+*   `npm start`: Runs the app in development mode.
+*   `npm test`: Launches the test runner in interactive watch mode.
+*   `npm run build`: Builds the app for production to the `build` folder.
+*   `npm run eject`: Removes the single dependency and copies all configuration files and transitive dependencies (webpack, Babel, ESLint, etc.) right into your project. **Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+*   `npm run update-packages`: Reads package data from `packages.csv` and updates `public/packages.json`.
+*   `npm run deploy`: Deploys the application to Vercel.
+
+## 🚢 Deployment
+
+This application is set up for easy deployment to [Vercel](https://vercel.com/). To deploy the application, run the following command:
+
+```sh
+npm run deploy
+```
+
+## 💻 Technologies Used
+
+*   **[React](https://reactjs.org/)**: A JavaScript library for building user interfaces.
+*   **[React Router](https://reactrouter.com/)**: For declarative routing in React.
+*   **[Tailwind CSS](https://tailwindcss.com/)**: A utility-first CSS framework for rapid UI development.
+*   **[i18next](https://www.i18next.com/)**: An internationalization-framework written in and for JavaScript.
+*   **[Framer Motion](https://www.framer.com/motion/)**: A production-ready motion library for React.
+
+## 🤝 Contributing
+
+Contributions, issues, and feature requests are welcome! Feel free to check the [issues page](https://github.com/your_username/travel-agency-frontend/issues).
+
+1.  Fork the Project
+2.  Create your Feature Branch (`git checkout -b feature/AmazingFeature`)
+3.  Commit your Changes (`git commit -m 'Add some AmazingFeature'`)
+4.  Push to the Branch (`git push origin feature/AmazingFeature`)
+5.  Open a Pull Request
+
+## 📜 License
+
+This project is licensed under the MIT License - see the [LICENSE](./LICENSE) file for details.
+
+## 📧 Contact
+
+Your Name - your_email@example.com
+
+Project Link: [https://github.com/your_username/travel-agency-frontend](https://github.com/your_username/travel-agency-frontend)
